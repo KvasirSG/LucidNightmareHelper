@@ -1,5 +1,6 @@
 -- NyxGUI Library
--- by Vildiesel EU - Well of Eternity
+-- by Jadya EU - Well of Eternity
+-- rewritten by KvasirSG
 
 -- How to embed:
 -- NyxGUI("1.0")  returns the library table for the specified major version (recommended)
@@ -50,7 +51,6 @@ local data   = {}
 local default_theme = {
                       -- textures and colors
 				       l0_texture     = "Interface\\Buttons\\GreyscaleRamp64",
-				       --l0_edge        = "",
                        l0_color       = "121212e6",
 				       l0_border      = "1A1A1Ae6",
 					   l1_texture     = "Interface\\Buttons\\WHITE8X8",
@@ -229,14 +229,21 @@ function ng:GetFont(addon, theme, t)
  return font
 end
 
+bobtest = "s"
+bobk2 = "s"
+
 local function checkFont(addon, theme, t)
  local font = ng:GetFont(addon, theme, t)
  local name, height = font:GetFont()
  local r, g, b, a = font:GetTextColor()
  local th = themes[addon][theme]
 
+ bobtest = font
+ bob2 = th
+
  if name ~= th["f_"..t.."_name"] or height ~= th["f_"..t.."_h"] then
-  font:SetFont(th["f_"..t.."_name"], th["f_"..t.."_h"], th["f"..t.."_flags"])
+      font:SetFont(DEFAULT_CHAT_FRAME:GetFont());
+  --font:SetFont(th["f_"..t.."_name"], th["f_"..t.."_h"], th["f"..t.."_flags"])
  end
 
  font:SetTextColor(ng.hex2rgba(th["f_"..t.."_color"]))
@@ -332,14 +339,17 @@ function ng:RemoveFromTheme(addon, theme, t, widget)
 end
 --
 
+local function drag_start(self) self:StartMoving() end
+local function drag_end(self) self:StopMovingOrSizing() end
+
 -- utils
 function ng:SetFrameMovable(f, flag)
  if flag then
   f:EnableMouse(true)
   f:SetMovable(true)
   f:RegisterForDrag("LeftButton")
-  f:SetScript("OnDragStart", f.StartMoving)
-  f:SetScript("OnDragStop", f.StopMovingOrSizing)
+  f:SetScript("OnDragStart", drag_start)
+  f:SetScript("OnDragStop", drag_end)
  else
   f:EnableMouse(false)
   f:SetMovable(false)
