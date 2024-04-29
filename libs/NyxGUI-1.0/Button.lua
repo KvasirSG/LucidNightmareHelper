@@ -53,7 +53,7 @@
   
   -- Button
   function ng.constructors.Button(addon, name, parent, theme)
-   local f = CreateFrame("Button", name, parent, BackdropTemplateMixin and "BackdropTemplate")
+   local f = CreateFrame("Button", name, parent, "BackdropTemplate")
    f:SetSize(75, 25)
    
    f.highlight = f:CreateTexture()
@@ -79,9 +79,11 @@
   end
   
   -- ColorButton
-  local cb_backdrop = { bgFile   = "Interface\\Buttons\\GreyscaleRamp64",
-                        edgeFile = "Interface\\Buttons\\WHITE8X8",
-                  edgeSize = 1 }
+  local cb_backdrop = {
+    bgFile   = "Interface\\Buttons\\GreyscaleRamp64",
+    edgeFile = "Interface\\Buttons\\WHITE8X8",
+    edgeSize = 1
+  }
   
   
   local function colorButton_update(self, ...)
@@ -89,7 +91,7 @@
   end
   
   function ng.constructors.Colorbutton(addon, name, parent, theme)
-   local f = CreateFrame("Frame", name, parent, BackdropTemplateMixin and "BackdropTemplate")
+   local f = CreateFrame("Frame", name, parent, "BackdropTemplate")
    f:SetSize(18, 18)
    f:SetBackdrop(cb_backdrop)
    f:SetBackdropColor(0, 0, 0, 1)
@@ -160,7 +162,7 @@
    if fixedIndex and parent.tabs[fixedIndex] then
     tab = parent.tabs[fixedIndex]
    else
-    tab = CreateFrame("Frame", nil, parent, BackdropTemplateMixin and "BackdropTemplate")
+    tab = CreateFrame("Frame", nil, parent)
     tab:SetAllPoints()
     tinsert(parent.tabs, tab)
    end
@@ -253,7 +255,7 @@
   
   -- Checkbox
   function ng.constructors.Checkbox(addon, name, parent, theme)
-   local f = CreateFrame("Checkbutton", name, parent, "OptionsCheckButtonTemplate", BackdropTemplateMixin and "BackdropTemplate")
+   local f = CreateFrame("Checkbutton", name, parent, "OptionsCheckButtonTemplate")
   
    tex = f:GetCheckedTexture()
    tex:ClearAllPoints()
