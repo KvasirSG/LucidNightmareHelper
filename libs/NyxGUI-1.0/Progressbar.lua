@@ -42,7 +42,7 @@
   end
   
   function ng.constructors.Progressbar(addon, name, parent, theme)
-   local f = CreateFrame("Frame", name, parent, BackdropTemplateMixin and "BackdropTemplate")
+   local f = CreateFrame("Frame", name, parent)
    f:SetSize(100, 20)
    
    f.text = ng.constructors.Label(addon, nil, f, theme)

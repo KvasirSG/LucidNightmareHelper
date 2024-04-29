@@ -236,7 +236,10 @@ local function checkFont(addon, theme, t)
  local th = themes[addon][theme]
 
  if name ~= th["f_"..t.."_name"] or height ~= th["f_"..t.."_h"] then
-  font:SetFont(th["f_"..t.."_name"], th["f_"..t.."_h"], th["f"..t.."_flags"])
+      function _setFont()
+            font:SetFont(th["f_"..t.."_name"], th["f_"..t.."_h"], th["f"..t.."_flags"])
+      end
+      pcall(_setFont);
  end
 
  font:SetTextColor(ng.hex2rgba(th["f_"..t.."_color"]))
