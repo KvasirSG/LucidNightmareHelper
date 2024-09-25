@@ -231,15 +231,12 @@ end
 
 local function checkFont(addon, theme, t)
  local font = ng:GetFont(addon, theme, t)
- local name, height = font:GetFont()
+ local name, height, flags = font:GetFont()
  local r, g, b, a = font:GetTextColor()
  local th = themes[addon][theme]
 
  if name ~= th["f_"..t.."_name"] or height ~= th["f_"..t.."_h"] then
-      function _setFont()
-            font:SetFont(th["f_"..t.."_name"], th["f_"..t.."_h"], th["f"..t.."_flags"])
-      end
-      pcall(_setFont);
+  font:SetFont("Fonts\\FRIZQT__.TTF", 11, "OUTLINE, MONOCHROME")
  end
 
  font:SetTextColor(ng.hex2rgba(th["f_"..t.."_color"]))

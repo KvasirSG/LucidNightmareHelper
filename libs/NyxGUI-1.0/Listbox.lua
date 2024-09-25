@@ -30,6 +30,16 @@
   local offset = HybridScrollFrame_GetOffset(self)
   local buttons = self.buttons
   local height = buttons[1]:GetHeight()
+
+  -- backdrop
+ local backdropInfo =
+{
+	bgFile = "Interface\\Buttons\\GreyscaleRamp64",
+ 	edgeFile = "Interface\\Buttons\\WHITE8X8",
+ 	tile = false,
+ 	edgeSize = 1,
+ 	insets = { left = 1, right = 1, top = 1, bottom = 1 },
+}
   
  
   if self.update_pre then
@@ -119,9 +129,7 @@
  
   assert(name, "NyxGUI: New(Listbox) the name parameter cannot be nil.")
  
-  local lb = CreateFrame("Scrollframe", name, parent, "HybridScrollFrameTemplate")
- 
-  lb.backdrop_type = "l1"
+  local lb = CreateFrame("Scrollframe", name, parent, "HybridScrollFrameTemplate", BackdropTemplateMixin and "BackdropTemplate")
   lb.addon = addon
   lb.theme = theme
   
@@ -131,7 +139,7 @@
   sb:SetPoint("BOTTOMLEFT", lb, "BOTTOMRIGHT", 4, 15)
   
   -- ScrollUp button
-  local f = CreateFrame("Button", name.."ScrollUp", sb)
+  local f = CreateFrame("Button", name.."ScrollUp", sb, BackdropTemplateMixin and "BackdropTemplate")
   f:SetPoint("BOTTOMLEFT", sb, "TOPLEFT", 1, 1)
   f:SetPoint("BOTTOMRIGHT", sb, "TOPRIGHT", 1, 1)
   f:SetHeight(15)
@@ -141,7 +149,7 @@
   lb.scrollUp = f
  
   -- ScrollDown button
-  f = CreateFrame("Button", name.."ScrollDown", sb)
+  f = CreateFrame("Button", name.."ScrollDown", sb, BackdropTemplateMixin and "BackdropTemplate")
   f:SetPoint("TOPLEFT", sb, "BOTTOMLEFT", 1, -2)
   f:SetPoint("TOPRIGHT", sb, "BOTTOMRIGHT", 1, -2)
   f:SetHeight(15)
@@ -160,6 +168,7 @@
  end
  
  function ng.set_theme.Listbox(self, th)
+  self:SetBackdrop(backdropInfo)
   self:SetBackdropColor(ng.hex2rgba(th["l1_color"]))
   self:SetBackdropBorderColor(ng.hex2rgba(th["l2_border"]))
  end
@@ -175,6 +184,7 @@
  end
  
  function ng.set_theme.Listbutton(self, th)
+  self:SetBackdrop(backdropInfo)
   self:SetBackdropBorderColor(ng.hex2rgba(th["l3_border"]))
   self:GetHighlightTexture():SetVertexColor(ng.hex2rgba(th["highlight"]))
  end
