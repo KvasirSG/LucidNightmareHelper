@@ -555,7 +555,7 @@ local function initialize()
  mf.current_room_label = ng:New(addonName, "Label", nil, mf)
  mf.current_room_label:SetPoint("TOP", topheader, "BOTTOM", 0, -10)
  
- scrollframe = CreateFrame("ScrollFrame", nil, mf, "BackdropTemplate")
+ scrollframe = CreateFrame("ScrollFrame", nil, mf, BackdropTemplateMixin and "BackdropTemplate")
  scrollframe:SetPoint("TOPLEFT", mf, "TOPLEFT", 75, -50)
  scrollframe:SetPoint("TOPRIGHT", mf, "TOPRIGHT", -30, -50)
  scrollframe:SetPoint("BOTTOMLEFT", mf, "BOTTOMLEFT", 75, 50)
@@ -565,7 +565,7 @@ local function initialize()
  scrollframe.bg:SetAllPoints()
  scrollframe.bg:SetColorTexture(0, 0, 0, 1)
  
- container = CreateFrame("Frame", nil, scrollframe, "BackdropTemplate")
+ container = CreateFrame("Frame", nil, scrollframe, BackdropTemplateMixin and "BackdropTemplate")
  container:SetSize(containerW, containerH)
  scrollframe:SetScrollChild(container)
  
@@ -587,7 +587,7 @@ local function initialize()
   scrollframe.dragging_camera = false
  end)
 
- scrollframe.centerButton = CreateFrame("Button", nil, scrollframe, "BackdropTemplate")
+ scrollframe.centerButton = CreateFrame("Button", nil, scrollframe, BackdropTemplateMixin and "BackdropTemplate")
  scrollframe.centerButton.tex = scrollframe.centerButton:CreateTexture()
  scrollframe.centerButton.tex:SetTexture("interface\\cursor\\crosshairs")
  scrollframe.centerButton.tex:SetAllPoints()
@@ -602,7 +602,7 @@ local function initialize()
  scrollframe.centerButton:SetScript("OnLeave", hideTooltip)
  scrollframe.centerButton:SetScript("OnClick", function() centerCam(current_room.cx, current_room.cy) end)
 
- scrollframe.resetButton = CreateFrame("Button", nil, scrollframe, "BackdropTemplate")
+ scrollframe.resetButton = CreateFrame("Button", nil, scrollframe, BackdropTemplateMixin and "BackdropTemplate")
  scrollframe.resetButton.tex = scrollframe.resetButton:CreateTexture()
  scrollframe.resetButton.tex:SetTexture("interface\\common\\voicechat-muted")
  scrollframe.resetButton.tex:SetAllPoints()
@@ -617,7 +617,7 @@ local function initialize()
  scrollframe.resetButton:SetScript("OnLeave", hideTooltip)
  scrollframe.resetButton:SetScript("OnClick", ResetMap)
  
- scrollframe.infoButton = CreateFrame("Button", nil, scrollframe, "BackdropTemplate")
+ scrollframe.infoButton = CreateFrame("Button", nil, scrollframe, BackdropTemplateMixin and "BackdropTemplate")
  scrollframe.infoButton.tex = scrollframe.infoButton:CreateTexture()
  scrollframe.infoButton.tex:SetTexture("interface\\friendsframe\\informationicon")
  scrollframe.infoButton.tex:SetAllPoints()
@@ -632,7 +632,7 @@ local function initialize()
   end)
  scrollframe.infoButton:SetScript("OnLeave", hideTooltip)
  
- playerframe = CreateFrame("Frame")
+ playerframe = CreateFrame("Frame", BackdropTemplateMixin and "BackdropTemplate")
  playerframe:SetAllPoints()
  playerframe.tex = playerframe:CreateTexture()
  playerframe.tex:SetAllPoints()
@@ -643,7 +643,7 @@ local function initialize()
  f:SetText(L["Markers"])
 
  for i = 1,5 do
-  f = CreateFrame("Button", nil, mf, "BackdropTemplate")
+  f = CreateFrame("Button", nil, mf, BackdropTemplateMixin and "BackdropTemplate")
   f.tex = f:CreateTexture()
   f.tex:SetAllPoints()
   f.tex:SetTexture("interface\\icons\\boss_odunrunes_"..(i == 3 and "orange" or color_strings[i]))
@@ -654,12 +654,12 @@ local function initialize()
   f.t = "rune"
   f.c = i
   f:SetScript("OnClick", setPOIClick)
-  --f:SetText(color_strings[i].." Rune")
+  f:SetText(color_strings[i].." Rune")
   
-  f = CreateFrame("Button", nil, mf, "BackdropTemplate")
+  f = CreateFrame("Button", nil, mf, BackdropTemplateMixin and "BackdropTemplate")
   f.tex = f:CreateTexture()
   f.tex:SetAllPoints()
-  f.tex:SetTexture("spells\\mage_frostorb_orb")
+  f.tex:SetTexture("Interface\\icons\\spell_broker_orb")
   f.tex:SetVertexColor(unpack(colors[i]))
   
   --f:SetPoint("TOPLEFT", mf, "TOPLEFT", 25, -220 + i * -32)
@@ -668,41 +668,43 @@ local function initialize()
   f.t = "orb"
   f.c = i
   f:SetScript("OnClick", setPOIClick)
-  --f:SetText(color_strings[i].." Orb")
+  f:SetText(color_strings[i].." Orb")
  end
  
  -- door markers
- f = CreateFrame("Button", nil, mf, "BackdropTemplate")
+ f = CreateFrame("Button", nil, mf, BackdropTemplateMixin and "BackdropTemplate")
  f.tex = f:CreateTexture()
  f.tex:SetAllPoints()
- f.tex:SetTexture("dungeons\\textures\\6hu_garrison\\6hu_garrison_rocks")
+ --f.tex:SetTexture("dungeons\\textures\\6hu_garrison\\6hu_garrison_rocks")
+ f.tex:SetTexture("Interface\\Buttons\\UI-SpellbookIcon-NextPage-Up")
  f:SetPoint("TOPLEFT", mf, "TOPLEFT", 25, -200)
  f:SetSize(25, 15)
  f.c = north
  f:SetScript("OnClick", setBlockade)
 
- f = CreateFrame("Button", nil, mf, "BackdropTemplate")
+
+ f = CreateFrame("Button", nil, mf, BackdropTemplateMixin and "BackdropTemplate")
  f.tex = f:CreateTexture()
  f.tex:SetAllPoints()
- f.tex:SetTexture("dungeons\\textures\\6hu_garrison\\6hu_garrison_rocks")
+ f.tex:SetTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Up")
  f:SetPoint("TOPLEFT", mf, "TOPLEFT", 9, -216)
  f:SetSize(15, 25)
  f.c = west
  f:SetScript("OnClick", setBlockade)
  
- f = CreateFrame("Button", nil, mf, "BackdropTemplate")
+ f = CreateFrame("Button", nil, mf, BackdropTemplateMixin and "BackdropTemplate")
  f.tex = f:CreateTexture()
  f.tex:SetAllPoints()
- f.tex:SetTexture("dungeons\\textures\\6hu_garrison\\6hu_garrison_rocks")
+ f.tex:SetTexture("Interface\\Buttons\\UI-SpellbookIcon-NextPage-Down")
  f:SetPoint("TOPLEFT", mf, "TOPLEFT", 51, -216)
  f:SetSize(15, 25)
  f.c = east
  f:SetScript("OnClick", setBlockade)
 
- f = CreateFrame("Button", nil, mf, "BackdropTemplate")
+ f = CreateFrame("Button", nil, mf, BackdropTemplateMixin and "BackdropTemplate")
  f.tex = f:CreateTexture()
  f.tex:SetAllPoints()
- f.tex:SetTexture("dungeons\\textures\\6hu_garrison\\6hu_garrison_rocks")
+ f.tex:SetTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Down")
  f:SetPoint("TOPLEFT", mf, "TOPLEFT", 25, -242)
  f:SetSize(25, 15)
  f.c = south
